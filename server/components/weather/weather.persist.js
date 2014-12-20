@@ -1,38 +1,45 @@
 'use strict';
 
 function WeatherDB() {
-  var Db     = require('tingodb')().Db,
-      defer  = require("node-promise/promise").defer,
-      assert = require('assert');
+  var Db         = require('tingodb')().Db,
+      defer      = require("node-promise/promise").defer,
+      dataMaxAge = 900000,
+      db,
+      collection;
 
-  var db = new Db('dbData', {});
-  var collection = db.collection('weather_collection');
+  _lazyInit();
 
-  function getWeatherForecast() {
+  function getForecast() {
     var deferred = defer();
 
     collection.findOne({type: 'forecast'}, function(err, item) {
-      assert.equal(null, err);
 
-      deferred.resolve(item);
+      if ((err) || (_dataIsOld(item))) {
+        deferred.reject();
+      } else {
+        deferred.resolve(item.data);
+      }
     });
 
     return deferred.promise;
   }
 
-  function getWeatherConditions() {
+  function getConditions() {
     var deferred = defer();
 
     collection.findOne({type: 'conditions'}, function(err, item) {
-      assert.equal(null, err);
 
-      deferred.resolve(item);
+      if ((err) || (_dataIsOld(item))) {
+        deferred.reject();
+      } else {
+        deferred.resolve(item.data);
+      }
     });
 
     return deferred.promise;
   }
 
-  function updateWeatherForecast(forecastJson) {
+  function updateForecast(forecastJson) {
     collection.update(
       {type: 'forecast'},
       {
@@ -43,7 +50,7 @@ function WeatherDB() {
       {upsert: true});
   }
 
-  function updateWeatherConditions(conditionsJson) {
+  function updateConditions(conditionsJson) {
     collection.update(
       {type: 'conditions'},
       {
@@ -54,12 +61,24 @@ function WeatherDB() {
       {upsert: true});
   }
 
+  function _lazyInit() {
+
+    if (!db || !collection) {
+      db = new Db('dbData', {});
+      collection = db.collection('weather_collection');
+    }
+  }
+
+  function _dataIsOld(jsonData) {
+    return (Date.now() - jsonData.fetchDate) > dataMaxAge;
+  }
+
   return {
-    getWeatherForecast: getWeatherForecast,
-    getWeatherConditions: getWeatherConditions,
-    updateWeatherForecast: updateWeatherForecast,
-    updateWeatherConditions: updateWeatherConditions
+    getForecast:      getForecast,
+    getConditions:    getConditions,
+    updateForecast:   updateForecast,
+    updateConditions: updateConditions
   }
 }
 
-module.exports = new WeatherDB();
+module.exports = exports = new WeatherDB();

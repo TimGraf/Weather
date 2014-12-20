@@ -6,99 +6,70 @@ function Weather() {
       defer          = require("node-promise/promise").defer;
 
   function getForecast(req, res) {
-    weatherDb.getWeatherForecast()
+
+    weatherDb.getForecast()
       .then(function(forecastJson) {
 
-        if (forecastJson) {
+        console.log('Retrieving cached forecast ...');
 
-          if (_isDataOld(forecastJson)) {
-            _updateForecast()
-              .then(function() {
-                weatherDb.getWeatherForecast()
-                  .then(function(forecastJson) {
-                    res.json(forecastJson);
-                  });
-              });
-          } else {
+        res.json(forecastJson);
+      }, function() {
+
+        console.log('Updating forecast ...');
+
+        _updateForecast()
+          .then(function(forecastJson) {
             res.json(forecastJson);
-          }
-        } else {
-          _updateForecast()
-            .then(function() {
-              weatherDb.getWeatherForecast()
-                .then(function(forecastJson) {
-                  res.json(forecastJson);
-                });
-            });
-        }
+          });
       });
   }
 
-  function getCurrentConditions(req, res) {
-    weatherDb.getWeatherConditions()
+  function getConditions(req, res) {
+    weatherDb.getConditions()
       .then(function(conditionsJson) {
 
-        if (conditionsJson) {
+        console.log('Retrieving cached conditions ...');
 
-          if (_isDataOld(conditionsJson)) {
-            _updateCurrentConditions()
-              .then(function() {
-                weatherDb.getWeatherConditions()
-                  .then(function(conditionsJson) {
-                    res.json(conditionsJson);
-                  });
-              });
-          } else {
+        res.json(conditionsJson);
+      }, function() {
+        _updateConditions()
+          .then(function(conditionsJson) {
+
+            console.log('Updating conditions ...');
+
             res.json(conditionsJson);
-          }
-        } else {
-          _updateCurrentConditions()
-            .then(function() {
-              weatherDb.getWeatherConditions()
-                .then(function(conditionsJson) {
-                  res.json(conditionsJson);
-                });
-            });
-        }
+          });
       });
-  }
-
-  function _isDataOld(jsonData) {
-    return (Date.now() - jsonData.fetchDate) > 900000;
   }
 
   function _updateForecast() {
     var deferred = defer();
 
-    console.log('Updating forecast data ...');
-
     weatherService.getForecast()
       .then(function(forecastJson) {
-        weatherDb.updateWeatherForecast(JSON.parse(forecastJson));
-        deferred.resolve();
+        weatherDb.updateForecast(forecastJson);
+        deferred.resolve(forecastJson);
       });
 
     return deferred.promise;
   }
 
-  function _updateCurrentConditions() {
+  function _updateConditions() {
     var deferred = defer();
 
-    console.log('Updating current conditions data ...');
-
-    weatherService.getCurrentConditions()
+    weatherService.getConditions()
       .then(function(conditionsJson) {
-        weatherDb.updateWeatherConditions(JSON.parse(conditionsJson));
-        deferred.resolve();
+        weatherDb.updateConditions(conditionsJson);
+        deferred.resolve(conditionsJson);
       });
 
     return deferred.promise;
   }
 
   return {
-    getForecast:          getForecast,
-    getCurrentConditions: getCurrentConditions
+    getForecast:   getForecast,
+    getConditions: getConditions
   };
 }
 
-module.exports = new Weather();
+module.exports = exports = new Weather();
