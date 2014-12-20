@@ -37,4 +37,4 @@ function WeatherService() {
   };
 }
 
- module.exports = exports = new WeatherService();
+module.exports = exports = new WeatherService();
