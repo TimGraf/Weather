@@ -6,4 +6,6 @@ public
 client/bower_components
 dist
 /server/config/local.env.js
-/dbData/weather_collection
+/dbData/*
+
+dbData/weather_collection
