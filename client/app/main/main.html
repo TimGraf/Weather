@@ -1,2 +1,12 @@
 <pre>{{conditions}}</pre>
-<pre>{{forecast}}</pre>
+<ul class="list-group">
+  <li class="list-group-item height-70" ng-class="{night: !$even}" ng-repeat="day in forecast.forecast.txt_forecast.forecastday">
+    <div class="col-sm-1">
+      <img src="{{day.icon_url}}">
+    </div>
+    <div class="col-sm-6">
+      <div class="over-flow-elip">{{day.title}}</div>
+      <div class="over-flow-elip">{{day.fcttext}}</div>
+    </div>
+  </li>
+</ul>

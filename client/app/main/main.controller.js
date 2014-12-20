@@ -6,7 +6,7 @@ angular.module('weatherApp')
     $scope.conditions = {};
 
     $http.get('/api/weather/forecast').success(function(forecast) {
-      $scope.forecast = JSON.stringify(forecast, null, '  ');
+      $scope.forecast = forecast;
     });
 
     $http.get('/api/weather/conditions').success(function(conditions) {
