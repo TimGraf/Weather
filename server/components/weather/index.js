@@ -9,14 +9,8 @@ function Weather() {
 
     weatherDb.getForecast()
       .then(function(forecastJson) {
-
-        console.log('Retrieving cached forecast ...');
-
         res.json(forecastJson);
       }, function() {
-
-        console.log('Updating forecast ...');
-
         _updateForecast()
           .then(function(forecastJson) {
             res.json(forecastJson);
@@ -27,16 +21,10 @@ function Weather() {
   function getConditions(req, res) {
     weatherDb.getConditions()
       .then(function(conditionsJson) {
-
-        console.log('Retrieving cached conditions ...');
-
         res.json(conditionsJson);
       }, function() {
         _updateConditions()
           .then(function(conditionsJson) {
-
-            console.log('Updating conditions ...');
-
             res.json(conditionsJson);
           });
       });

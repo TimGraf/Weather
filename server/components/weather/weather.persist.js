@@ -17,6 +17,9 @@ function WeatherDB() {
       if ((err) || (_dataIsOld(item))) {
         deferred.reject();
       } else {
+
+        console.log('Retrieving cached forecast ...');
+
         deferred.resolve(item.data);
       }
     });
@@ -32,6 +35,9 @@ function WeatherDB() {
       if ((err) || (_dataIsOld(item))) {
         deferred.reject();
       } else {
+
+        console.log('Retrieving cached conditions ...');
+
         deferred.resolve(item.data);
       }
     });
@@ -40,6 +46,9 @@ function WeatherDB() {
   }
 
   function updateForecast(forecastJson) {
+
+    console.log('Updating forecast ...');
+
     collection.update(
       {type: 'forecast'},
       {
@@ -51,6 +60,9 @@ function WeatherDB() {
   }
 
   function updateConditions(conditionsJson) {
+
+    console.log('Updating conditions ...');
+
     collection.update(
       {type: 'conditions'},
       {
@@ -64,6 +76,9 @@ function WeatherDB() {
   function _lazyInit() {
 
     if (!db || !collection) {
+
+      console.log('Initializing weather database ...');
+
       db = new Db('dbData', {});
       collection = db.collection('weather_collection');
     }
