@@ -10,8 +10,8 @@ That means if I later want to add MongoDB, I only need some very minor code chan
 
 The demo application cane be seen in the link below. (please excuse the “waether” misspelling in the URI, oops)
 
-[https://waether.herokuapp.com/](Weather Application)
+[Weather Application](https://waether.herokuapp.com/)
 
 I also have a blog post about this application and the technologies used to create it.
 
-[http://grafcode.net/blog/?p=152](Weather Application Blog Post)
+[Weather Application Blog Post](http://grafcode.net/blog/?p=152)
