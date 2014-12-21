@@ -13,7 +13,7 @@
     <div class="panel-heading">Current Weather Conditions for {{conditions.current_observation.display_location.full}}</div>
     <div class="panel-body">
       <div class="col-lg-2">
-        <img height="100" width="100" src="{{conditions.current_observation.icon_url.replace('/k/', '/v1/').replace('gif', 'svg')}}">
+        <img height="100" width="100" src="{{conditions.current_observation.icon_url}}">
         <div class="text-primary">{{conditions.current_observation.weather}}</div>
       </div>
       <div class="col-lg-4 pull-left">
@@ -39,7 +39,7 @@
             <div class="col-sm-10">
               <div class="well well-sm day height-60">
                 <div class="col-sm-1">
-                  <img height="40" width="40" src="{{forecast.forecast.txt_forecast.forecastday[$index * 2].icon_url.replace('/k/', '/v1/').replace('gif', 'svg')}}">
+                  <img height="40" width="40" src="{{forecast.forecast.txt_forecast.forecastday[$index * 2].icon_url}}">
                 </div>
                 <div class="col-sm-2">
                   {{forecast.forecast.txt_forecast.forecastday[$index * 2].title}}
@@ -50,7 +50,7 @@
               </div>
               <div class="well well-sm night height-60">
                 <div class="col-sm-1">
-                  <img height="40" width="40" src="{{forecast.forecast.txt_forecast.forecastday[$index * 2 + 1].icon_url.replace('/k/', '/v1/').replace('gif', 'svg')}}">
+                  <img height="40" width="40" src="{{forecast.forecast.txt_forecast.forecastday[$index * 2 + 1].icon_url}}">
                 </div>
                 <div class="col-sm-2">
                   {{forecast.forecast.txt_forecast.forecastday[$index * 2 + 1].title}}
