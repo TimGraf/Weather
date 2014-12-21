@@ -1,7 +1,57 @@
-.height-70 {
-  height: 70px;
+.big-font {
+  font-size: xx-large;
+}
+
+.text-top {
+  vertical-align: text-top;
+}
+
+.inline {
+  display: inline;
+}
+
+.height-60 {
+  height: 60px;
+}
+
+.height-165 {
+  height: 165px;
+}
+
+.line-ht-3 {
+  line-height: 3;
+}
+
+.mar-right-20 {
+  margin-right: 20px;
+}
+
+.mar-top-20 {
+  margin-top: 20px;
+}
+
+.pad-top-bot-5 {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.width-2 {
+  width: 2%;
 }
 
 .night {
   background-color: #E8F4FF;
+}
+
+.day {
+  background-color: #F9FADE;
+}
+
+.forecast {
+  overflow: scroll;
+  height: 45vh;
+}
+
+.conditions {
+  line-height: 3.5;
 }

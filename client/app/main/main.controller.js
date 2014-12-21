@@ -10,7 +10,7 @@ angular.module('weatherApp')
     });
 
     $http.get('/api/weather/conditions').success(function(conditions) {
-      $scope.conditions = JSON.stringify(conditions, null, '  ');
+      $scope.conditions = conditions;
     });
 
   });

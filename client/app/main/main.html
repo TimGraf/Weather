@@ -1,12 +1,68 @@
-<pre>{{conditions}}</pre>
-<ul class="list-group">
-  <li class="list-group-item height-70" ng-class="{night: !$even}" ng-repeat="day in forecast.forecast.txt_forecast.forecastday">
-    <div class="col-sm-1">
-      <img src="{{day.icon_url}}">
+<div class="container">
+
+  <div class="row panel panel-default mar-top-20 pad-top-bot-5">
+    <div class="col-lg-1">
+      <img height="40" src="{{conditions.current_observation.image.url}}">
     </div>
-    <div class="col-sm-6">
-      <div class="over-flow-elip">{{day.title}}</div>
-      <div class="over-flow-elip">{{day.fcttext}}</div>
+    <div class="col-lg-4 line-ht-3">
+      <div>Weather data provided by <a href="{{conditions.current_observation.image.link}}" target="_blank">{{conditions.current_observation.image.title}}</a></div>
     </div>
-  </li>
-</ul>
+  </div>
+
+  <div class="row panel panel-default">
+    <div class="panel-heading">Current Weather Conditions for {{conditions.current_observation.display_location.full}}</div>
+    <div class="panel-body">
+      <div class="col-lg-2">
+        <img height="100" width="100" src="{{conditions.current_observation.icon_url.replace('/k/', '/v1/').replace('gif', 'svg')}}">
+        <div class="text-primary">{{conditions.current_observation.weather}}</div>
+      </div>
+      <div class="col-lg-4 pull-left">
+        <div class="text-primary big-font">{{conditions.current_observation.temperature_string}}</div>
+        <div class="text-muted">Feels like: {{conditions.current_observation.feelslike_string}}</div>
+        <div class="text-muted">Relative humidity: {{conditions.current_observation.relative_humidity}}</div>
+        <div class="text-muted">Winds: {{conditions.current_observation.wind_string}}</div>
+      </div>
+    </div>
+    <div class="panel-footer">{{conditions.current_observation.observation_time}}</div>
+  </div>
+
+  <div class="row panel panel-default">
+    <div class="panel-heading">10-Day Weather Forecast</div>
+    <div class="panel-body forecast">
+      <ul class="list-group">
+        <li class="list-group-item height-165" ng-repeat="day in forecast.forecast.simpleforecast.forecastday">
+          <div>
+            <div class="col-sm-2">
+              <div>{{day.date.weekday}}</div>
+              <div>{{day.high.fahrenheit}} / {{day.low.fahrenheit}} &deg;F</div>
+            </div>
+            <div class="col-sm-10">
+              <div class="well well-sm day height-60">
+                <div class="col-sm-1">
+                  <img height="25" width="25" src="{{forecast.forecast.txt_forecast.forecastday[$index * 2].icon_url.replace('/k/', '/v1/').replace('gif', 'svg')}}">
+                </div>
+                <div class="col-sm-2">
+                  {{forecast.forecast.txt_forecast.forecastday[$index * 2].title}}
+                </div>
+                <div class="col-sm-9">
+                  {{forecast.forecast.txt_forecast.forecastday[$index * 2].fcttext}}
+                </div>
+              </div>
+              <div class="well well-sm night height-60">
+                <div class="col-sm-1">
+                  <img height="25" width="25" src="{{forecast.forecast.txt_forecast.forecastday[$index * 2 + 1].icon_url.replace('/k/', '/v1/').replace('gif', 'svg')}}">
+                </div>
+                <div class="col-sm-2">
+                  {{forecast.forecast.txt_forecast.forecastday[$index * 2 + 1].title}}
+                </div>
+                <div class="col-sm-9">
+                  {{forecast.forecast.txt_forecast.forecastday[$index * 2 + 1].fcttext}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
