@@ -33,13 +33,13 @@
         <li class="list-group-item height-165" ng-repeat="day in forecast.forecast.simpleforecast.forecastday">
           <div>
             <div class="col-sm-2">
-              <div>{{day.date.weekday}}</div>
-              <div>{{day.high.fahrenheit}} / {{day.low.fahrenheit}} &deg;F</div>
+              <div>{{day.date.weekday}} {{day.date.month}}/{{day.date.day}}</div>
+              <div>{{day.high.fahrenheit}} | {{day.low.fahrenheit}} &deg;F</div>
             </div>
             <div class="col-sm-10">
               <div class="well well-sm day height-60">
                 <div class="col-sm-1">
-                  <img height="25" width="25" src="{{forecast.forecast.txt_forecast.forecastday[$index * 2].icon_url.replace('/k/', '/v1/').replace('gif', 'svg')}}">
+                  <img height="40" width="40" src="{{forecast.forecast.txt_forecast.forecastday[$index * 2].icon_url.replace('/k/', '/v1/').replace('gif', 'svg')}}">
                 </div>
                 <div class="col-sm-2">
                   {{forecast.forecast.txt_forecast.forecastday[$index * 2].title}}
@@ -50,7 +50,7 @@
               </div>
               <div class="well well-sm night height-60">
                 <div class="col-sm-1">
-                  <img height="25" width="25" src="{{forecast.forecast.txt_forecast.forecastday[$index * 2 + 1].icon_url.replace('/k/', '/v1/').replace('gif', 'svg')}}">
+                  <img height="40" width="40" src="{{forecast.forecast.txt_forecast.forecastday[$index * 2 + 1].icon_url.replace('/k/', '/v1/').replace('gif', 'svg')}}">
                 </div>
                 <div class="col-sm-2">
                   {{forecast.forecast.txt_forecast.forecastday[$index * 2 + 1].title}}
